@@ -273,7 +273,7 @@ __uint64_t ProxyKernelServer::sys_openat(__uint64_t dirfd, __uint64_t fn, __uint
     // TODO ensure that the canonical path is under the FS root.
 
     std::fstream * newStream;
-    std::fstream::openmode fsMode = 0;
+    std::fstream::openmode fsMode = std::fstream::in;
     if ((flags & 3) == O_RDONLY) {
         fsMode = std::fstream::in;
     } else if ((flags & 3) == O_WRONLY) {
