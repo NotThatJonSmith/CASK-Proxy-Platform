@@ -28,6 +28,7 @@ public:
     void SetFSRoot(std::string fsRoot);
     void SetPipes(std::istream *stdin, std::ostream *stdout, std::ostream *stderr);
     void SetCommandLine(std::string commandLine);
+    void AttachLog(std::ostream* log);
 
 private:
 
@@ -43,6 +44,8 @@ private:
     std::istream *sim_stdin = &std::cin;
     std::ostream *sim_stdout = &std::cout;
     std::ostream *sim_stderr = &std::cerr;
+
+    std::ostream *out = nullptr;
 
     __uint64_t nextFD = 3;
     std::vector<__uint64_t> fdFreePool;

@@ -11,6 +11,10 @@ ProxyKernelServer::ProxyKernelServer(IOTarget *systemBus, EventQueue *eq, __uint
     shutdownEvent(shutdownEventNumber) {
 }
 
+void ProxyKernelServer::AttachLog(std::ostream* log) {
+    out = log;
+}
+
 __uint32_t ProxyKernelServer::Read32(__uint32_t startAddress, __uint32_t size, char* dst) {
     // TODO proper bounds checks
     for (unsigned int i = 0; i < size; i++) {
@@ -83,18 +87,22 @@ void ProxyKernelServer::DispatchSystemCall(__uint64_t magic_mem) {
                             request.words.args[2], request.words.args[3],
                             request.words.args[4], request.words.args[5],
                             request.words.args[6]);
-        // (*out) << std::dec;
-        // (*out) << "Calling system call " << syscallTable[request.words.n].name
-        //         << "("
-        //         << request.words.args[0] << ", " << request.words.args[1] << ", "
-        //         << request.words.args[2] << ", " << request.words.args[3] << ", "
-        //         << request.words.args[4] << ", " << request.words.args[5] << ", "
-        //         << request.words.args[6] << ") returns "
-        //         << result << std::endl;
+        if (out) {
+            (*out) << std::dec;
+            (*out) << "Calling system call " << syscallTable[request.words.n].name
+                    << "("
+                    << request.words.args[0] << ", " << request.words.args[1] << ", "
+                    << request.words.args[2] << ", " << request.words.args[3] << ", "
+                    << request.words.args[4] << ", " << request.words.args[5] << ", "
+                    << request.words.args[6] << ") returns "
+                    << result << std::endl;
+        }
     } else {
-        // (*out) << std::dec;
-        // (*out) << "Calling unknown system call with code" << request.words.n
-        //         << std::endl;
+        if (out) {
+            (*out) << std::dec;
+            (*out) << "Calling unknown system call with code" << request.words.n
+                   << std::endl;
+        }
     }
 
     bus->Write64(magic_mem, sizeof(result), (char*)&result);
