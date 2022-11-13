@@ -81,8 +81,9 @@ __uint128_t CoreLocalInterruptor::Fetch128(__uint128_t startAddress, __uint128_t
     return 0;
 }
 
-void CoreLocalInterruptor::Tick() {
+unsigned int CoreLocalInterruptor::Tick() {
     // TODO
+    return 1;
 }
 
 } // namespace CASK
