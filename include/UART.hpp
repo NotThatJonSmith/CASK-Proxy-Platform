@@ -10,6 +10,9 @@ namespace CASK {
 #define UART_REG_RXFIFO		1
 #define UART_REG_TXCTRL		2
 #define UART_REG_RXCTRL		3
+#define UART_REG_IE			4
+#define UART_REG_IP			5
+#define UART_REG_DIV		6
 
 class UART : public CASK::IOTarget {
 
@@ -17,6 +20,8 @@ private:
 
     char state[4];
     std::ostream *out;
+    bool txen = false;
+    bool rxen = false;
 
 public:
 
