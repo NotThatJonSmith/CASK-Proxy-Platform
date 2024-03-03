@@ -1,4 +1,7 @@
 # CASK-Proxy-Platform
+
+Archived / Deprecated / Etc. All the useful code has been rolled up into GRIM.
+
 Device models as apparently expected by the RISC-V Proxy Kernel
 
 ## TODOs
